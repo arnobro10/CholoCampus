@@ -17,6 +17,7 @@ import AppBrand from './AppBrand.jsx';
 import { SystemThemeProvider, useSystemTheme } from './SystemTheme.jsx';
 import { distanceKm } from './destinations.js';
 import useSharedData from './data/useSharedData.js';
+import useLocalTestData, { LOCAL_TEST_USER } from './data/useLocalTestData.js';
 import { activeOfferInDirection, activeBookingInDirection } from './data/activeRides.js';
 import { parseFare, fareLabel } from './data/fares.js';
 import useUniversityAuth from './auth/useUniversityAuth.js';
@@ -49,8 +50,10 @@ const timeLabel=(time)=>new Date(`2000-01-01T${time}:00`).toLocaleTimeString('en
 function App(){
   const auth=useUniversityAuth();
   const [localPreview,setLocalPreview]=useState(()=>import.meta.env.DEV && ['localhost','127.0.0.1','[::1]'].includes(window.location.hostname));
-  const cloud=useSharedData(auth.user);
-  const db={...cloud.data,user:auth.user||(localPreview?{id:'local-preview',name:'Local preview',email:'Not signed in'}:null)};
+  const sharedCloud=useSharedData(localPreview?null:auth.user);
+  const localCloud=useLocalTestData();
+  const cloud=localPreview?localCloud:sharedCloud;
+  const db={...cloud.data,user:localPreview?LOCAL_TEST_USER:auth.user};
   const theme=useSystemTheme();
   const [destinationOpen,setDestinationOpen]=useState(false);
   const [rideLocationEndpoint,setRideLocationEndpoint]=useState(null);
@@ -130,7 +133,7 @@ function App(){
     await cloud.mutate('save_destination',{p_name:destination.name,p_lat:destination.coords[0],p_lng:destination.coords[1]});
     setDestinationOpen(false);setFocus(destination.coords);notice('Preferred destination saved');
   };
-  const logout=async()=>{if(localPreview&&!auth.user){setLocalPreview(false);return;}if(!(await auth.signOut()))return;setChatId(null);setDraft('');setMenu(false);setDestinationOpen(false);setRideLocationEndpoint(null);setPage('discover');};
+  const logout=async()=>{if(localPreview){setLocalPreview(false);return;}if(!(await auth.signOut()))return;setChatId(null);setDraft('');setMenu(false);setDestinationOpen(false);setRideLocationEndpoint(null);setPage('discover');};
   const activeChat=requests.find(r=>r.id===chatId);
   const toPage=(p)=>{setSelected(null);setRideLocationEndpoint(null);setPage(p);setMenu(false)};
   if (!db.user) return <div className="signed-out-shell" data-theme={theme}>
