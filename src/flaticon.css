@@ -1,0 +1,67 @@
+@font-face{font-family:FlaticonRounded;src:url(/assets/flaticon-rounded.woff2) format("woff2");font-display:block}.cp-icon{display:inline-flex;align-items:center;justify-content:center;flex-shrink:0;line-height:1;font-style:normal;vertical-align:middle}.cp-icon::before{font-family:FlaticonRounded!important;font-weight:normal!important;font-style:normal!important;line-height:1}
+.fi-rr-arrow-right::before{
+    content: "\e0ff";
+    }
+.fi-rr-arrow-up-right::before{
+    content: "\e11b";
+    }
+.fi-rr-bell::before{
+    content: "\e1da";
+    }
+.fi-rr-calendar::before{
+    content: "\e35d";
+    }
+.fi-rr-car::before{
+    content: "\e3a2";
+    }
+.fi-rr-check::before{
+    content: "\e430";
+    }
+.fi-rr-angle-small-down::before{
+    content: "\e0a1";
+    }
+.fi-rr-clock::before{
+    content: "\e4cb";
+    }
+.fi-rr-compass-slash::before{
+    content: "\e580";
+    }
+.fi-rr-sign-out-alt::before{
+    content: "\f1b3";
+    }
+.fi-rr-marker::before{
+    content: "\ecac";
+    }
+.fi-rr-menu-burger::before{
+    content: "\eceb";
+    }
+.fi-rr-comment::before{
+    content: "\e553";
+    }
+.fi-rr-moon::before{
+    content: "\ed67";
+    }
+.fi-rr-location-arrow::before{
+    content: "\ec42";
+    }
+.fi-rr-plus::before{
+    content: "\ef85";
+    }
+.fi-rr-search::before{
+    content: "\f13a";
+    }
+.fi-rr-paper-plane::before{
+    content: "\ee64";
+    }
+.fi-rr-shield-check::before{
+    content: "\f176";
+    }
+.fi-rr-settings-sliders::before{
+    content: "\f164";
+    }
+.fi-rr-users::before{
+    content: "\f554";
+    }
+.fi-rr-cross::before{
+    content: "\e5e8";
+    }

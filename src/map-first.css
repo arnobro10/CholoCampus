@@ -1,0 +1,64 @@
+/* The default Find Ride view contains only the map and a single search bar. */
+.map-mode{height:100dvh;min-height:0;overflow:hidden;position:relative}
+.map-mode>.sidebar{display:none}
+.map-mode>.main{position:relative;width:100%;height:100%}
+.map-mode .discover{position:absolute;inset:0;width:100%;height:100%;max-width:none;margin:0;padding:0}
+.map-mode .explore-layout{position:relative;display:block;width:100%;height:100%}
+.map-mode .map-card{position:absolute;inset:0;width:100%;height:100%;border-radius:0}
+.map-mode .topbar{position:absolute;top:max(16px,env(safe-area-inset-top));left:20px;right:20px;z-index:600;height:46px;padding:0;gap:10px;background:transparent;pointer-events:none}
+.map-mode .topbar>*{pointer-events:auto}
+.map-mode .mobile-menu{display:grid;flex-shrink:0;width:46px;height:46px;border:1px solid var(--line);box-shadow:0 3px 14px #0003}
+.map-mode .header-right{gap:8px;flex-shrink:0}
+.map-mode .header-right>.live-dot,.map-mode .header-right>span,.map-mode .header-right>button[aria-label="My requests"]{display:none}
+.map-mode .header-right .iconbtn,.map-mode .header-right .avatar{border:1px solid var(--line);box-shadow:0 3px 14px #0003}
+.map-search-control{position:absolute;top:86px;left:50%;transform:translateX(-50%);z-index:550;width:min(520px,calc(100% - 40px));pointer-events:none}
+.map-search-control>*{pointer-events:auto}
+.map-search-bar{display:flex;align-items:center;gap:12px;padding:6px 8px 6px 18px;background:var(--surface);color:var(--label);border:1px solid var(--line);border-radius:18px;box-shadow:0 6px 24px #0004;min-height:60px}
+.map-search-bar>input{flex:1;min-width:0;width:100%;border:0;outline:0;background:transparent;color:var(--label);font:400 15px var(--font-sans);height:44px;text-overflow:ellipsis}
+.map-search-bar>input::placeholder{color:var(--secondary);opacity:1}
+.search-tool{flex-shrink:0;display:inline-flex;align-items:center;justify-content:center;width:42px;height:42px;min-height:42px;border:0;border-radius:50%;background:transparent;color:var(--label);padding:0}
+.search-tool:hover,.search-tool.active{background:var(--surface-raised)}
+.search-drawer{margin-top:10px;padding:18px;background:var(--surface);color:var(--label);border:1px solid var(--line);border-radius:22px;box-shadow:0 12px 36px #0005;max-height:calc(100dvh - 254px);overflow:auto;overscroll-behavior:contain;scrollbar-width:thin}
+.search-drawer-heading{display:flex;justify-content:space-between;align-items:center;gap:12px;margin-bottom:12px}
+.search-drawer-heading h1{margin:0 0 4px;font:500 18px var(--font-sans);letter-spacing:-.5px;line-height:1.2}
+.search-drawer-heading small{color:var(--secondary);font-size:11px}
+.place-suggestions{border-bottom:1px solid var(--line);padding-bottom:8px;margin-bottom:12px}
+.place-suggestions:empty{display:none}
+.place-suggestions>button{display:flex;align-items:center;gap:12px;width:100%;text-align:left;background:transparent;border:0;color:var(--label);font:400 13px var(--font-sans);padding:12px 2px;min-height:48px}
+.place-suggestions>button>span{flex:1;min-width:0}
+.search-drawer .destination-shortcut{margin:0 0 10px;padding:12px;border-radius:14px}
+.search-drawer .tabs{margin-top:10px}
+.search-drawer .ride-list{padding:0;overflow:visible}
+.search-drawer .ride-card{margin-bottom:10px}
+.search-drawer .empty-state{padding:20px 8px}
+.ride-result-count{color:var(--secondary);font-size:11px;margin:16px 2px 12px}
+.map-mode .mobile-dropdown{position:absolute;display:flex;flex-direction:column;z-index:950;top:72px;left:20px;min-width:200px;background:var(--surface);border:1px solid var(--line);box-shadow:0 12px 30px #0005}
+.map-mode .mobile-dropdown button{min-height:44px;padding:12px 24px;border:0;background:transparent;color:var(--label);text-align:left}
+.menu-credits{display:grid;gap:4px;padding:12px 20px;border-top:1px solid var(--line)}
+.menu-credits>a{display:flex;align-items:center;min-height:32px;font-size:11px;color:var(--secondary);text-decoration:none}
+.menu-credits>a:hover{text-decoration:underline}
+.map-mode .floating-nav{display:flex;position:absolute;bottom:calc(26px + env(safe-area-inset-bottom));left:50%;transform:translateX(-50%);z-index:500;gap:2px;padding:5px;border-radius:40px;border:1px solid var(--line);background:var(--material);box-shadow:inset 0 1px 0 #ffffff20,0 6px 24px #0004;-webkit-backdrop-filter:blur(20px) saturate(180%);backdrop-filter:blur(20px) saturate(180%)}
+.map-mode .floating-nav button{display:grid;place-items:center;width:44px;height:44px;border:0;border-radius:50%;background:transparent;color:var(--secondary);padding:0}
+.map-mode .floating-nav button.active{background:var(--accent);color:#171b07}
+.map-mode .floating-nav button span{display:none}
+.map-mode .icon-credit{display:none}
+.map-mode .mapbox-brand{left:12px;bottom:100px}
+.map-mode .leaflet-control-attribution{font-size:10px!important;max-width:100%;line-height:1.4!important;white-space:normal!important}
+.map-mode .toast{bottom:110px;max-width:calc(100% - 32px)}
+.picker-open .floating-nav{visibility:hidden}
+.fixed-campus-note{font-size:11px;font-weight:400;line-height:1.5;color:var(--secondary)}
+.form-grid select:disabled{background:var(--surface);color:var(--label);opacity:1;border-style:dashed;cursor:default}
+@media(max-width:900px){
+ .map-mode .topbar{left:16px;right:16px;gap:8px}
+ .map-mode .header-right>button[aria-label^="Use"]{display:none}
+ .map-search-control{width:calc(100% - 32px);top:82px}
+ .map-search-bar{min-height:56px;padding-left:16px;gap:8px}
+ .map-search-bar>input{font-size:14px}
+ .map-mode .mobile-dropdown{left:16px}
+ .search-drawer{max-height:calc(100dvh - 240px)}
+}
+@media(max-width:360px){.map-search-bar{gap:4px;padding-left:12px}.map-search-bar>input{font-size:13px}.search-tool{width:38px;height:42px}.map-mode .topbar{left:12px;right:12px}.map-search-control{width:calc(100% - 24px)}}
+@media(max-height:500px){.map-mode .map-brand-chip{display:none}.map-mode .topbar{top:10px}.map-mode .header-right{margin-left:auto}.map-search-control{top:10px;width:min(480px,calc(100% - 180px))}.search-drawer{max-height:calc(100dvh - 145px)}.map-mode .floating-nav{bottom:22px}.map-search-bar{min-height:48px}}
+@media(prefers-reduced-transparency:reduce){.map-mode .floating-nav{background:var(--surface);-webkit-backdrop-filter:none;backdrop-filter:none}}
+
+.map-mode .map-error{top:auto;bottom:100px;left:16px;right:16px;max-width:520px;margin:0 auto}

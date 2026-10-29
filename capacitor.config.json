@@ -1,0 +1,8 @@
+{
+  "appId": "com.nexasity.campuspool",
+  "appName": "choloCampus",
+  "webDir": "dist",
+  "android": {
+    "backgroundColor": "#000000"
+  }
+}
