@@ -10,12 +10,22 @@ export default function RideMapTiles() {
   const theme = useSystemTheme();
   const style = theme === 'dark' ? 'dark-v11' : 'light-v11';
   useEffect(() => setFailed(false), [style]);
-  if (!token) return <TileLayer
+  if (!token) return <>
+    {/* Keep a loaded world tile underneath detail tiles during zoom changes. */}
+    <TileLayer url="https://tile.openstreetmap.org/{z}/{x}/{y}.png"
+      maxNativeZoom={0} maxZoom={18} zIndex={0} />
+    <TileLayer zIndex={1}
+    keepBuffer={4} updateWhenIdle={false} updateInterval={100}
     url="https://tile.openstreetmap.org/{z}/{x}/{y}.png"
     attribution='&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
-  />;
+  /></>;
   return <>
-    <TileLayer key={style}
+    <TileLayer key={`overview-${style}`} zIndex={0}
+      url={`https://api.mapbox.com/styles/v1/mapbox/${style}/tiles/256/{z}/{x}/{y}?access_token=${encodeURIComponent(token)}`}
+      maxNativeZoom={0} maxZoom={20}
+    />
+    <TileLayer key={style} zIndex={1}
+      keepBuffer={4} updateWhenIdle={false} updateInterval={100}
       url={`https://api.mapbox.com/styles/v1/mapbox/${style}/tiles/512/{z}/{x}/{y}?access_token=${encodeURIComponent(token)}`}
       tileSize={512} zoomOffset={-1} maxZoom={20}
       attribution='&copy; <a href="https://www.mapbox.com/about/maps/">Mapbox</a> &copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> <a href="https://apps.mapbox.com/feedback/">Improve this map</a>'
