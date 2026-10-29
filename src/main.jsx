@@ -45,8 +45,9 @@ const timeLabel=(time)=>new Date(`2000-01-01T${time}:00`).toLocaleTimeString('en
 
 function App(){
   const auth=useUniversityAuth();
+  const [localPreview,setLocalPreview]=useState(()=>import.meta.env.DEV && ['localhost','127.0.0.1','[::1]'].includes(window.location.hostname));
   const cloud=useSharedData(auth.user);
-  const db={...cloud.data,user:auth.user};
+  const db={...cloud.data,user:auth.user||(localPreview?{id:'local-preview',name:'Local preview',email:'Not signed in'}:null)};
   const theme=useSystemTheme();
   const [destinationOpen,setDestinationOpen]=useState(false);
   const [rideLocationEndpoint,setRideLocationEndpoint]=useState(null);
@@ -116,15 +117,16 @@ function App(){
     await cloud.mutate('save_destination',{p_name:destination.name,p_lat:destination.coords[0],p_lng:destination.coords[1]});
     setDestinationOpen(false);setFocus(destination.coords);notice('Preferred destination saved');
   };
-  const logout=async()=>{if(!(await auth.signOut()))return;setChatId(null);setDraft('');setMenu(false);setDestinationOpen(false);setRideLocationEndpoint(null);setPage('discover');};
+  const logout=async()=>{if(localPreview&&!auth.user){setLocalPreview(false);return;}if(!(await auth.signOut()))return;setChatId(null);setDraft('');setMenu(false);setDestinationOpen(false);setRideLocationEndpoint(null);setPage('discover');};
   const activeChat=requests.find(r=>r.id===chatId);
   const toPage=(p)=>{setSelected(null);setRideLocationEndpoint(null);setPage(p);setMenu(false)};
-  if (!auth.user || !db.user) return <div className="signed-out-shell" data-theme={theme}>
+  if (!db.user) return <div className="signed-out-shell" data-theme={theme}>
     <AccessDialog open={auth.accessDenied} onClose={auth.dismissAccessDenied}/>
     <LoginPanel auth={auth}/>
     <p className="signed-out-credit">A product of <a href="https://nexasity.pages.dev/" target="_blank" rel="noopener noreferrer">Nexasity</a></p>
   </div>;
   return <div className={`app-shell ${page==='discover'?'map-mode':''} ${destinationOpen||rideLocationEndpoint?'picker-open':''}`} data-theme={theme}>
+    {localPreview&&!auth.user&&<div className="local-preview-notice" role="status">Local preview · Sign in to publish rides or save changes.<button onClick={()=>setLocalPreview(false)}>Sign in</button></div>}
     <AccessDialog open={auth.accessDenied} onClose={auth.dismissAccessDenied}/>
     <aside className="sidebar">
       <div className="brand"><AppBrand/><small>BRAC University</small></div>
