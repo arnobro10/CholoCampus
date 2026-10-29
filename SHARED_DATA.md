@@ -28,7 +28,7 @@ Historical browser-only demo records are not automatically uploaded or deleted. 
 
 ## Verification
 
-- Fourteen Node tests cover auth, schedule, destinations, cloud mapping, pagination, and API failures.
+- Eighteen Node tests cover auth, schedule, destinations, cloud mapping, pagination, and API failures.
 - Hosted transaction test `supabase/tests/shared_data.sql` exercises three temporary university members: publishing, requesting, duplicate retry, private chat, acceptance, preventing overselling, decline, cancellation, destination privacy and daily limit, direct-write denial and invalid-session denial. The entire test rolls back, including Auth fixtures.
 - Anonymous HTTP reads returned 401 for all four new tables.
 - Supabase security advisors found no table/function findings. An Auth configuration warning remains for disabled leaked-password protection; this app only accepts Google university identities. Reference: https://supabase.com/docs/guides/auth/password-security#password-strength-and-leaked-password-protection
@@ -41,3 +41,11 @@ The shared `src/campus.js` coordinate points at the Merul Badda campus centre (2
 ## Ride fares
 
 Offers may include an optional fare in BDT per seat. Blank/NULL means discuss with the owner, zero means free, and paid fares accept up to two decimal places. The UI displays the fare on cards, details, My Rides, and conversation headers. The server validates the amount before storing it in `rides.fare`. New clients use the guarded `publish_ride` RPC; the existing `create_ride` API remains available for older builds and creates rides with no specified fare. There is no in-app payment processing.
+
+## Ride location picker
+
+Editable pickup and destination fields open a native modal dialog with typed place search, matching quick locations, a draggable map under a fixed centre pin, an editable location name, and explicit confirmation. Search is submitted with the Search button or Enter rather than firing a request for each keystroke. It queries Photon's public OSM geocoder, bounded to Dhaka, with cancellation, timeout, in-memory query reuse, and an optional `VITE_GEOCODER_URL` override. CORS and real Dhaka results were checked against the live endpoint. Public Photon service usage must remain reasonable and has no availability guarantee; deploy a dedicated compatible instance for higher traffic. Source: https://github.com/komoot/photon . Map dragging and naming a pin remain available if search fails. Mapbox still supplies map tiles.
+
+Supabase stores pickup_lat/pickup_lng/destination_lat/destination_lng. The guarded `publish_ride_at_locations` RPC validates both points, fare, and fixed campus geometry before publishing atomically. Old APIs remain available for previous APKs. Known legacy labels are backfilled; unknown legacy addresses are not assigned invented coordinates. Shared markers and nearby filtering use the saved points. Student destinations in this picker are route endpoints; the separate preferred-destination daily limit does not limit ride pickup/destination editing.
+
+To campus locks both the label and coordinates of the destination to BRACU. From campus locks both pickup label and coordinates. Unit and hosted rollback integration tests cover both directions, custom-point persistence, outside-Dhaka rejection, and fixed-campus validation. Actual phone drag/keyboard testing remains required.

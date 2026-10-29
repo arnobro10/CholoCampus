@@ -2,10 +2,10 @@ import test from 'node:test';
 import assert from 'node:assert/strict';
 import { fetchSharedData, callMutation, stateFromRows } from './sharedData.js';
 
-const ride={id:'ride',owner_id:'owner',owner_name:'Faculty Member',direction:'to',pickup:'Dhanmondi 27',destination:'BRAC University, Merul Badda',ride_date:'2026-10-30',departure_time:'08:30:00',vehicle:'Car',seats:1,note:'Meet at the main road',cancelled:false,fare:'80.50'};
+const ride={id:'ride',owner_id:'owner',owner_name:'Faculty Member',direction:'to',pickup:'Dhanmondi 27',destination:'BRAC University, Merul Badda',ride_date:'2026-10-30',departure_time:'08:30:00',vehicle:'Car',seats:1,note:'Meet at the main road',cancelled:false,fare:'80.50',pickup_lat:23.766,pickup_lng:90.388,destination_lat:23.77308,destination_lng:90.42447};
 test('cloud records populate ride, conversation and preference views without exposing email',()=>{
   const state=stateFromRows([ride],[{id:'request',ride_id:'ride',requester_id:'student',requester_name:'Student',owner_id:'owner',owner_name:'Faculty Member',status:'accepted'}],[{id:'message',request_id:'request',sender_id:'student',body:'On my way',created_at:'2026-10-30T01:00:00Z'},{id:'system',request_id:'request',sender_id:null,body:'Seat reserved',created_at:'2026-10-30T01:01:00Z'}],[{user_id:'student',name:'Home',lat:23.76,lng:90.38,change_date:'2026-10-30',changes:2}]);
-  assert.equal(state.rides[0].fare,80.5);assert.equal(state.requests[0].rideSnapshot.fare,80.5);assert.equal(state.rides[0].time,'08:30');assert.equal(state.rides[0].initials,'FM');
+  assert.deepEqual(state.rides[0].fromCoords,[23.766,90.388]);assert.deepEqual(state.requests[0].rideSnapshot.toCoords,[23.77308,90.42447]);assert.equal(state.rides[0].fare,80.5);assert.equal(state.requests[0].rideSnapshot.fare,80.5);assert.equal(state.rides[0].time,'08:30');assert.equal(state.rides[0].initials,'FM');
   assert.equal(state.requests[0].rideSnapshot.from,'Dhanmondi 27');
   assert.equal(state.chats.request[0].from,'student');assert.equal(state.chats.request[1].from,'system');
   assert.deepEqual(state.destinations.student.coords,[23.76,90.38]);

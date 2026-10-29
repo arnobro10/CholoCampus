@@ -2,6 +2,8 @@ export function rideFromRow(row) {
   return { id:row.id, ownerId:row.owner_id, name:row.owner_name,
     initials:row.owner_name.split(' ').map(s=>s[0]).join('').slice(0,2).toUpperCase(),
     direction:row.direction, from:row.pickup, to:row.destination, date:row.ride_date,
+    fromCoords:row.pickup_lat != null && row.pickup_lng != null ? [row.pickup_lat,row.pickup_lng] : null,
+    toCoords:row.destination_lat != null && row.destination_lng != null ? [row.destination_lat,row.destination_lng] : null,
     time:row.departure_time.slice(0,5), vehicle:row.vehicle, seats:row.seats,
     note:row.note, fare:row.fare == null ? null : Number(row.fare), cancelled:row.cancelled };
 }
