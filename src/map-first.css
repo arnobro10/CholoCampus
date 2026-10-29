@@ -76,3 +76,14 @@
 .ride-card-fare{margin-top:12px;font-size:13px;font-weight:600;color:var(--label)}
 
 .local-preview-notice{position:fixed;bottom:90px;left:16px;z-index:900;max-width:calc(100% - 32px);padding:8px 12px;border-radius:10px;background:var(--surface);color:var(--label);border:1px solid var(--line);font-size:11px;display:flex;align-items:center;gap:10px}.local-preview-notice button{background:transparent;color:var(--label);border:0;text-decoration:underline;min-height:32px;font:inherit;white-space:nowrap}
+
+.offer-limit-hint{font-size:13px;line-height:1.5;color:var(--secondary);margin:-4px 0 20px}
+.published-offer{border-top:1px solid var(--line);padding:28px 0 0}
+.published-offer-heading{display:flex;align-items:center;gap:10px;color:var(--label)}
+.published-offer-heading>.cp-icon{color:var(--accent);flex-shrink:0}
+.published-offer h3{font-size:19px;font-weight:500;line-height:1.4;margin:0}
+.published-offer p{font-size:13px;line-height:1.7;color:var(--secondary)}
+.published-offer .published-offer-route{display:flex;align-items:center;flex-wrap:wrap;gap:10px;color:var(--label);margin-top:20px}
+.published-offer-actions{display:flex;flex-wrap:wrap;gap:12px;margin:24px 0 10px}
+.offer-limit-help{padding:8px 0;border:0;background:transparent;color:var(--secondary);text-align:left;text-decoration:underline;text-underline-offset:3px;font:inherit;font-size:12px}
+@media(max-width:480px){.published-offer-actions{flex-direction:column}.published-offer-actions button{width:100%;justify-content:center}.published-offer h3{font-size:17px}}
