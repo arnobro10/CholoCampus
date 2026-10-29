@@ -2,6 +2,17 @@
 
 A product of [Nexasity](https://nexasity.pages.dev/).
 
+A campus ride-sharing prototype for BRAC University students in Dhaka. Find or offer rides, request seats, and coordinate shared commutes through a responsive map-based interface.
+
+**Topics:** `ride-sharing` · `carpooling` · `brac-university` · `campus` · `dhaka` · `react` · `vite` · `leaflet` · `capacitor` · `android`
+
+## UI preview
+
+![choloCampus ride-sharing interface with ride search, offer cards, and a Dhaka map](docs/desktop-preview.png)
+
+*Earlier desktop UI preview; the screenshot uses the original CampusPool branding.*
+
+
 ## Current UI and maps
 
 The running preview is React, with a reference-inspired black/lime interface,
