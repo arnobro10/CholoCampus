@@ -1,5 +1,9 @@
 # CholoCampus promotional video
 
+Nine-second version: `brag-9sec.mp4`, with a separate editable project in `composition-9sec`. It uses animated map markers, a result-card reveal, a button press, staggered chat bubbles and beat-aligned cuts. The original 27-second file remains available.
+
+Rebuild the short version with `python brag-output/build_short.py`, run HyperFrames check/render from `composition-9sec` with output `../brag-9sec.mp4`, then run `python brag-output/finalize_video.py --stem brag-9sec --seconds 9 --poster-at 8` from the repository root.
+
 Final local output: `brag.mp4`. Landscape, 1920×1080, 30fps, 27 seconds, H.264 with AAC music. `brag.jpg` is the selected closing brand frame, also inserted as the video's first frame for player thumbnails.
 
 The film uses the actual logo and Poppins assets, and recreates source UI at video scale. The map is illustrative. Example rides, fares and chat are labeled as demos. The film does not assert public availability, payment support, driver tracking, notifications or route matching.

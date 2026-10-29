@@ -1,0 +1,34 @@
+<template><style>
+@font-face{font-family:Poppins;src:url('assets/fonts/poppins-400.ttf');font-weight:400}
+@font-face{font-family:Poppins;src:url('assets/fonts/poppins-500.ttf');font-weight:500}
+@font-face{font-family:Poppins;src:url('assets/fonts/poppins-600.ttf');font-weight:600}
+@font-face{font-family:Poppins;src:url('assets/fonts/poppins-700.ttf');font-weight:700}
+*{box-sizing:border-box} #root{position:absolute;inset:0;color:#f5f5f7;font-family:Poppins;background:#101114;overflow:hidden}
+.stage{position:absolute;inset:0;padding:100px 160px;background:#101114}
+.brand{display:flex;align-items:center;gap:18px;font-size:29px;font-weight:600;letter-spacing:-1px}
+.brand img{width:64px;height:64px;border-radius:17px;object-fit:contain;background:white}
+.top{display:flex;justify-content:space-between;align-items:center}.eyebrow{color:#d5f531;font-size:28px;letter-spacing:3px;font-weight:500}
+h1,h2,p{margin:0} h1{font-size:112px;line-height:1.1;letter-spacing:-6px;font-weight:600} h2{font-size:72px;line-height:1.16;letter-spacing:-3px;font-weight:600}
+.lime{color:#d5f531}.muted{color:#b5b6be}.sub{font-size:30px;line-height:1.65;color:#b5b6be;margin-top:28px}
+.foot{position:absolute;left:160px;right:160px;bottom:66px;display:flex;justify-content:space-between;font-size:28px;color:#a7aab3}
+.line{height:2px;background:#34363c}.pill{display:inline-block;padding:12px 24px;border:1px solid #494c53;border-radius:50px;font-size:28px}
+.ui{background:#1b1d23;border:2px solid #41444a;border-radius:30px;box-shadow:0 30px 100px #0008;overflow:hidden}
+.bar{height:62px;background:#23262c;display:flex;align-items:center;gap:9px;padding:0 26px;color:#b5b6be;font-size:28px}
+.dot{width:9px;height:9px;border-radius:50%;background:#747780}.bar span:last-child{margin-left:20px}
+.button{padding:20px 26px;background:#d5f531;color:#111411;border-radius:16px;font-size:28px;font-weight:600;text-align:center}
+.label{font-size:28px;color:#b5b6be;letter-spacing:2px;margin-bottom:10px}.value{font-size:29px;font-weight:500}
+.route{display:flex;gap:23px;align-items:center}.route-mark{width:15px;height:15px;border:4px solid #d5f531;border-radius:50%}
+.row{display:flex;justify-content:space-between;align-items:center}.tag{font-size:28px;color:#f9b3a9;background:#412d2c;padding:8px 16px;border-radius:12px}
+
+</style><div data-hf-id="hf-ypfn" id="root" data-composition-id="intro" data-width="1920" data-height="1080"><div data-hf-id="hf-d1h3" class="stage" id="intro-stage"><div data-hf-id="hf-sijt" class="top"><div data-hf-id="hf-xo41" class="brand"><img data-hf-id="hf-6tl7" src="assets/logo.png" alt="CholoCampus logo">choloCampus</div><div data-hf-id="hf-p0vo" class="eyebrow">CAMPUS RIDES, SHARED.</div></div>
+<div data-hf-id="hf-ueiv" style="margin-top:145px"><h1 data-hf-id="hf-67xe" id="intro-title">Campus rides.<br data-hf-id="hf-x5px"><span data-hf-id="hf-kbwr" class="lime">Shared.</span></h1>
+<p data-hf-id="hf-j3mi" id="intro-sub" class="sub">BRAC University · Dhaka</p></div>
+<div data-hf-id="hf-qzoj" id="intro-route" style="display:flex;align-items:center;gap:24px;margin-top:65px"><span data-hf-id="hf-cvtv" class="pill">Home</span><div data-hf-id="hf-mxaf" style="height:3px;width:350px;background:#d5f531;transform-origin:left" id="intro-track"></div><span data-hf-id="hf-pri7" class="pill">BRACU</span></div><div data-hf-id="hf-mlgk" class="foot"><span data-hf-id="hf-sl55">BRAC UNIVERSITY · DHAKA</span><span data-hf-id="hf-clww">Better commutes, together.</span></div></div></div>
+<script>const tl=gsap.timeline({paused:true});
+// beat-locked scene cut at 0s
+
+tl.fromTo('#intro-title',{scale:.9,opacity:0},{scale:1,opacity:1,duration:.32,ease:'power4.out'},0);
+tl.fromTo('#intro-track',{scaleX:0},{scaleX:1,duration:.6,ease:'power3.inOut'},.15);
+tl.fromTo('#intro-stage',{x:0},{x:-1920,duration:.22,ease:'power3.in'},1.15);
+
+window.__timelines["intro"]=tl;</script></template>

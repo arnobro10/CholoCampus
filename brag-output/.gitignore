@@ -17,3 +17,13 @@ verification.json
 composition/.thumbnails/
 composition/AGENTS.md
 composition/CLAUDE.md
+composition/.waveform-cache/
+composition-9sec/assets/
+composition-9sec/.hyperframes/
+composition-9sec/.thumbnails/
+composition-9sec/.waveform-cache/
+brag-9sec.mp4
+brag-9sec.jpg
+short-frames/
+short-check.json
+.*.hf-transaction-*/
