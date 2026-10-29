@@ -58,3 +58,8 @@ Migration `20261029203735_one_active_ride_per_owner.sql` adds a trigger shared b
 This migration has been applied to the hosted database. `supabase/tests/one_active_ride.sql` is a rollback test for duplicate rejection, sold-out offers, cancellation and historical rides. Both the one-active-ride and shared-data rollback tests passed on the hosted database while preparing Android 0.12-test. The shared-data integration fixtures now cancel each temporary offer before creating the next.
 
 Ride location confirmation now requires selecting a search result or explicitly moving/clicking the map. Typing a new query invalidates confirmation, and the chosen place name is read-only so editing text cannot silently relabel unrelated coordinates. Preferred map-pin labels are explicitly described as labels, not address searches.
+
+
+## Direction-specific limits
+
+Migration `20261030210000_active_rides_per_direction.sql` replaces the total offer limit with one future, uncancelled offer per direction. One campus-bound and one return offer may coexist. Pending/accepted passenger bookings are also limited to one per direction, independently of offers. Cancelled, declined, and departed rides do not block another booking. The submit button reads “Already published” for an occupied offer direction without the extra warning paragraph. Apply the migration to enable these rules across clients; hosted execution has not been verified in this change.

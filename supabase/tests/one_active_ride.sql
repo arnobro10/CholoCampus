@@ -24,6 +24,9 @@ begin
   raise exception 'Second active offer was allowed';
  exception when unique_violation then null;
  end;
+ -- The opposite direction is independently available.
+ insert into public.rides(owner_id,owner_name,direction,pickup,destination,ride_date,departure_time,vehicle,capacity,seats)
+ values(u,'Test','from','BRAC University, Merul Badda','Home',current_date+2,'18:00','Car',1,1);
  -- A sold-out offer still counts as active.
  update public.rides set seats=0 where id=first_id;
  begin
