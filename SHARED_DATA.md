@@ -51,10 +51,10 @@ Supabase stores pickup_lat/pickup_lng/destination_lat/destination_lng. The guard
 To campus locks both the label and coordinates of the destination to BRACU. From campus locks both pickup label and coordinates. Unit and hosted rollback integration tests cover both directions, custom-point persistence, outside-Dhaka rejection, and fixed-campus validation. Actual phone drag/keyboard testing remains required.
 
 
-## Pending: one active offer and explicit location selection
+## One active offer and explicit location selection
 
-Migration `20261030200000_one_active_ride_per_owner.sql` adds a trigger shared by all publishing APIs. It serializes publishing per profile and rejects a second future, uncancelled offer, including sold-out offers. Cancelling or reaching departure time releases the limit. Existing duplicate offers are preserved; new offers remain blocked until they are cancelled or depart.
+Migration `20261029203735_one_active_ride_per_owner.sql` adds a trigger shared by all publishing APIs. It serializes publishing per profile and rejects a second future, uncancelled offer, including sold-out offers. Cancelling or reaching departure time releases the limit. Existing duplicate offers are preserved; new offers remain blocked until they are cancelled or depart.
 
-Apply this migration to the hosted database before relying on the limit across devices. `supabase/tests/one_active_ride.sql` is a rollback test for duplicate rejection, sold-out offers, cancellation and historical rides. It has not been run against the hosted database in this change. The shared-data integration fixtures now cancel each temporary offer before creating the next.
+This migration has been applied to the hosted database. `supabase/tests/one_active_ride.sql` is a rollback test for duplicate rejection, sold-out offers, cancellation and historical rides. Both the one-active-ride and shared-data rollback tests passed on the hosted database while preparing Android 0.12-test. The shared-data integration fixtures now cancel each temporary offer before creating the next.
 
 Ride location confirmation now requires selecting a search result or explicitly moving/clicking the map. Typing a new query invalidates confirmation, and the chosen place name is read-only so editing text cannot silently relabel unrelated coordinates. Preferred map-pin labels are explicitly described as labels, not address searches.
