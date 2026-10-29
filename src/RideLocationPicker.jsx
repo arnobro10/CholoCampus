@@ -9,16 +9,18 @@ import './ride-location-picker.css';
 
 function PinMap({jump,onMove}) {
   const map=useMap();
+  const userMoved=useRef(false);
   useEffect(()=>{
     const frame=requestAnimationFrame(()=>map.invalidateSize());
     return()=>cancelAnimationFrame(frame);
   },[map]);
   useEffect(()=>{if(jump)map.setView(jump,Math.max(map.getZoom(),15),{animate:false});},[map,jump]);
-  useMapEvents({moveend:()=>{const c=map.getCenter();onMove([c.lat,c.lng]);},click:event=>map.panTo(event.latlng)});
+  useMapEvents({dragstart:()=>{userMoved.current=true;},moveend:()=>{if(!userMoved.current)return;userMoved.current=false;const c=map.getCenter();onMove([c.lat,c.lng]);},click:event=>{onMove([event.latlng.lat,event.latlng.lng]);map.panTo(event.latlng,{animate:false});}});
   return null;
 }
 export default function RideLocationPicker({endpoint,initial,locations,onConfirm,onClose}) {
   const [selection,setSelection]=useState(isDhakaPoint(initial?.coords)?initial:{name:'',coords:CAMPUS});
+  const [confirmed,setConfirmed]=useState(false);
   const [jump,setJump]=useState(isDhakaPoint(initial?.coords)?initial.coords:CAMPUS);
   const [query,setQuery]=useState('');
   const [results,setResults]=useState([]);
@@ -33,12 +35,12 @@ export default function RideLocationPicker({endpoint,initial,locations,onConfirm
   },[]);
   const choose=place=>{
     request.current?.abort('superseded');request.current=null;setLoading(false);setError('');setResults([]);setSearched(false);
-    setSelection({name:place.name,coords:place.coords});setJump([...place.coords]);
+    setQuery('');setConfirmed(true);setSelection({name:place.name,coords:place.coords});setJump([...place.coords]);
   };
-  const move=point=>setSelection(previous=>{
+  const move=point=>{setConfirmed(true);setQuery('');setResults([]);setSearched(false);setSelection(previous=>{
     if(distanceKm(previous.coords,point)<0.001)return previous;
     return {name:`Pinned ${endpoint==='from'?'pickup':'destination'}`,coords:point};
-  });
+  });};
   const search=async event=>{
     event.preventDefault();
     if(query.trim().length<2)return;
@@ -56,8 +58,9 @@ export default function RideLocationPicker({endpoint,initial,locations,onConfirm
       if(request.current===controller && controller.signal.reason!=='superseded')setError('Location search could not finish. Try again, or drag the map to your location.');
     }finally{clearTimeout(timer);if(request.current===controller)setLoading(false);}
   };
-  const editQuery=value=>{request.current?.abort('superseded');request.current=null;setLoading(false);setQuery(value);setResults([]);setSearched(false);setError('');};
+  const editQuery=value=>{setConfirmed(false);request.current?.abort('superseded');request.current=null;setLoading(false);setQuery(value);setResults([]);setSearched(false);setError('');};
   const confirm=()=>{
+    if(!confirmed){setError('Select a search result or place a pin on the map first.');return;}
     if(!isDhakaPoint(selection.coords)){setError('Choose a location within Dhaka.');return;}
     if(!selection.name.trim()){setError('Add a name for this location.');return;}
     onConfirm({...selection,name:selection.name.trim().slice(0,100)});
@@ -72,6 +75,6 @@ export default function RideLocationPicker({endpoint,initial,locations,onConfirm
       {searched&&!loading&&!error&&!results.length&&!suggestions.length&&<p>No matches found. Try another address or drag the map to set your pin.</p>}
     </div>
     <div className="ride-pin-map"><MapContainer center={selection.coords} zoom={15} zoomAnimation={false} fadeAnimation={false} maxBounds={DHAKA_BOUNDS} maxBoundsViscosity={1} className="map"><RideMapTiles/><PinMap jump={jump} onMove={move}/></MapContainer><div className="ride-center-pin" aria-hidden="true"><MapPin size={34}/></div><span className="ride-pin-hint">Drag the map to move the pin</span></div>
-    <footer><label>Location name<input maxLength={100} value={selection.name} onChange={event=>setSelection({...selection,name:event.target.value})} placeholder="e.g. Road 7, beside the pharmacy"/></label><p>{selection.coords[0].toFixed(5)}, {selection.coords[1].toFixed(5)}</p><button type="button" className="primary-btn full" onClick={confirm} disabled={!selection.name.trim()||!isDhakaPoint(selection.coords)}>Use this {endpoint==='from'?'pickup':'destination'}</button><small>Search: Photon · <a href="https://www.openstreetmap.org/copyright" target="_blank" rel="noreferrer">© OpenStreetMap contributors</a></small></footer>
+    <footer><label>Location name<input maxLength={100} value={selection.name} readOnly placeholder="e.g. Road 7, beside the pharmacy"/></label><p>{selection.coords[0].toFixed(5)}, {selection.coords[1].toFixed(5)}</p><button type="button" className="primary-btn full" onClick={confirm} disabled={!confirmed||!selection.name.trim()||!isDhakaPoint(selection.coords)}>Use this {endpoint==='from'?'pickup':'destination'}</button><small>Select a result or place a map pin to confirm the location. Search: Photon · <a href="https://www.openstreetmap.org/copyright" target="_blank" rel="noreferrer">© OpenStreetMap contributors</a></small></footer>
   </dialog>;
 }
