@@ -1,0 +1,4 @@
+<resources>
+    <color name="launch_background">#F4F5EF</color>
+    <bool name="light_system_bars">true</bool>
+</resources>

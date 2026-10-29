@@ -1,0 +1,13 @@
+node_modules/
+dist/
+.build-tools/
+artifacts/
+.env.local
+.env.*.local
+.env
+.env.*
+!.env.example
+*.keystore
+*.jks
+*.log
+ui-preview.png
