@@ -16,7 +16,7 @@ A campus ride-sharing prototype for BRAC University students in Dhaka. Find or o
 ## Current UI and maps
 
 The running preview is React, with a reference-inspired black/lime interface,
-light appearance toggle, responsive floating navigation, and labeled ride markers.
+system light/dark appearance, responsive floating navigation, and labeled ride markers.
 The requested Flutter migration has not been implemented; Flutter is not installed
 in the inspected environment.
 
@@ -51,15 +51,9 @@ Run the timezone and departure validation checks with:
 node --test src/schedule.test.js
 ```
 
-The local prototype now scopes the selected conversation to the current demo
-profile, validates bike capacity and campus direction, checks departure times
-again when requesting seats, and retains cancelled offers and their conversations.
-Sample ride identifiers include the ride date so new daily samples do not reuse
-previous days' requests. These client-side checks are not server authorization.
+Google login accepts verified students and faculty at `g.bracu.ac.bd` and `bracu.ac.bd`. Set the Supabase URL and publishable key in `.env.local` as shown in `.env.example`; see [AUTH_SETUP.md](AUTH_SETUP.md) for Google provider setup. No secret/service-role keys belong in the frontend.
 
-Next steps: verify the full interface in a browser, add offer editing and labeled
-map markers, then introduce a shared database with transactional seat acceptance.
-Confirm the accepted university email domains before configuring Google login.
+Rides, seat requests, messages and preferred destinations are stored in Supabase with row-level access rules and transactional seat acceptance. See [SHARED_DATA.md](SHARED_DATA.md) for details. The signed-out screen shows only the university login page.
 
 ```bash
 npm install
@@ -81,22 +75,15 @@ npm run build
 - 9:00 PM Bangladesh-time rollover: from 9 PM to 8:59 PM the following day, the board displays that following day's offers
 - Posting offers at any point in that period provided departure time is still in the future
 - Vehicle type, pickup, destination, departure, seat count, and notes
-- Request a seat, negotiate by local demo chat, accept/decline requests, and reduce seats on acceptance
-- My Rides, profile, and sample ride cards
-- localStorage saving for demo changes
+- Request a seat, coordinate through private shared chat, accept/decline requests, and reduce seats on acceptance
+- My Rides, university profile, and real shared offers
+- Supabase storage and automatic refresh across signed-in devices
 
 ## Important limitations (not ready to deploy for real university use)
 
-This is a **single-browser demo**, not a connected multi-user service. Seeded riders are fictitious; they will not receive messages or accept requests. The demo login is **not Google authentication** and does not verify BRAC University affiliation. Posts, seat requests, and chat are stored locally in the current browser only. Map tiles and fonts require internet access.
+The shared backend and Google domain restrictions are implemented. Rides and messages refresh every five seconds while the app is visible. An internet connection is required; failed saves are not stored offline. Historical browser demo records are not automatically imported.
 
-Before a real launch, add:
-
-1. Google Workspace OAuth with backend verification of BRAC University email domain and identity.
-2. Hosted database (e.g., PostgreSQL/Supabase), with row-level access policies and real-time updates.
-3. Secure real-time chat, actual seat booking transactions, double-booking protection, alerts, and cancellation policy.
-4. Driver/vehicle verification, reporting, moderation, privacy safeguards, and university/legal approval as applicable.
-5. Server-side time enforcement with `Asia/Dhaka` timezone. Current time checks are client-side only.
-6. Geocoding/map location picking and route matching. This demo uses a curated set of Dhaka-area locations.
+Before public launch, complete two-device Google login and booking tests, privacy/terms documentation, driver verification, reporting and moderation, notification delivery, and cancellation policies. Full address search and route matching remain future work.
 
 ## Daily rollover specification
 
@@ -108,15 +95,15 @@ Before a real launch, add:
 
 ## Tech stack
 
-React 19, Vite 7, React Leaflet / Leaflet, Lucide React. No server or credentials required for this demo.
+React 19, Vite 7, React Leaflet / Leaflet, Capacitor and Supabase Auth/Postgres. Client configuration uses public Mapbox and Supabase publishable keys.
 
 Typography uses locally bundled Poppins (400, 500, 600, 700); its OFL license is in public/assets/Poppins-OFL.txt. UI icons use Flaticon Uicons Regular Rounded, with visible footer attribution as required by https://www.flaticon.com/uicons/get-started/.
 
 ## Latest test build
 
-Find Ride now opens directly on the map with floating search and an expandable ride list. In Offer Ride, going to campus locks the destination to BRAC University; returning locks the pickup to BRAC University. Server-independent frontend validation also enforces these endpoints.
+Find Ride now opens directly on the map with floating search and an expandable ride list. In Offer Ride, going to campus locks the destination to BRAC University; returning locks the pickup to BRAC University. The backend enforces these endpoints and validates departure times and seat counts.
 
-The preferred destination picker supports searching the curated Dhaka locations or naming a map pin. It saves per demo profile and allows two saves per Bangladesh calendar day, resetting at midnight (separate from the 9 PM ride-board rollover). Optional nearby filtering uses a 3 km radius around the non-campus end of each ride. This is client-only enforcement. Full address search, reverse geocoding, live GPS, route directions and server persistence are not implemented.
+The preferred destination picker supports searching the curated Dhaka locations or naming a map pin. It saves to the university account in Supabase and allows two saves per Bangladesh calendar day, resetting at midnight (separate from the 9 PM ride-board rollover). Optional nearby filtering uses a 3 km radius around the non-campus end of each ride. The daily limit is enforced on the server. The map has a current-location button; full address search, reverse geocoding and route directions are not implemented.
 
 The new choloCampus logo is in public/brand/cholocampus-logo.png. The Android test build is artifacts/choloCampus-test.apk.
 

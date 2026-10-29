@@ -10,11 +10,9 @@ Flutter build. The application ID is `com.nexasity.campuspool`.
 3. Install choloCampus and open it. Android 7.0 or newer is required.
 
 The interface, Poppins fonts, and Flaticon icons are bundled. Internet is needed
-for Mapbox maps. The app does not depend on the development server or your PC.
+for Google login, shared rides/messages, and Mapbox maps. The app does not depend on the development server or your PC.
 
-This is a debug-signed test build. Profiles, offers, requests, and conversations
-are local to each installation. Two phones do not share bookings or chat.
-Google sign-in and university verification are not implemented.
+This is a debug-signed test build. Profiles, offers, requests, messages and preferred destinations use Supabase. Google sign-in requires an authorized university account and the provider setup in AUTH_SETUP.md. Rebuild the APK after changing the web app; previously installed APKs do not update automatically.
 
 ## Rebuild in Windows PowerShell
 

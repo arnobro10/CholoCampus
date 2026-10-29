@@ -46,4 +46,4 @@ Schema and rejection tests passed on the hosted database. Anonymous profile acce
 
 At implementation time the Google provider was **disabled**. End-to-end Google login has not been tested and requires the client credentials above plus a real eligible account. Test both allowed domains, an outside Google account, account switching, sign-out, expired sessions, browser redirects, and Android app return before launch.
 
-Rides, bookings, preferred destinations and chat are still local-demo data; this change does not implement their shared backend.
+Rides, seat requests, messages, and preferred destinations now use the shared Supabase backend. See SHARED_DATA.md for tables, access rules, refresh behavior, and verification.
