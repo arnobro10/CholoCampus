@@ -3,7 +3,7 @@ export function rideFromRow(row) {
     initials:row.owner_name.split(' ').map(s=>s[0]).join('').slice(0,2).toUpperCase(),
     direction:row.direction, from:row.pickup, to:row.destination, date:row.ride_date,
     time:row.departure_time.slice(0,5), vehicle:row.vehicle, seats:row.seats,
-    note:row.note, cancelled:row.cancelled };
+    note:row.note, fare:row.fare == null ? null : Number(row.fare), cancelled:row.cancelled };
 }
 
 export function stateFromRows(rides, requests, messages, destinations) {

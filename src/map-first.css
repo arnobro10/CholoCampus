@@ -72,3 +72,5 @@
 @media(max-width:900px){.map-locate-control{right:16px;max-width:calc(100% - 32px)}}
 
 .cloud-sync-status{position:fixed;top:86px;left:50%;transform:translateX(-50%);z-index:1500;max-width:calc(100vw - 40px);width:max-content;box-sizing:border-box;padding:12px 18px;border-radius:16px;background:var(--surface);border:1px solid var(--line);color:var(--label);font-size:12px;box-shadow:0 4px 18px #0003}.cloud-sync-status button{margin-left:12px;background:var(--accent);color:#171b07;border:0;border-radius:12px;padding:6px 12px}
+
+.ride-card-fare{margin-top:12px;font-size:13px;font-weight:600;color:var(--label)}

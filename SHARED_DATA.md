@@ -28,7 +28,7 @@ Historical browser-only demo records are not automatically uploaded or deleted. 
 
 ## Verification
 
-- Twelve Node tests cover auth, schedule, destinations, cloud mapping, pagination, and API failures.
+- Fourteen Node tests cover auth, schedule, destinations, cloud mapping, pagination, and API failures.
 - Hosted transaction test `supabase/tests/shared_data.sql` exercises three temporary university members: publishing, requesting, duplicate retry, private chat, acceptance, preventing overselling, decline, cancellation, destination privacy and daily limit, direct-write denial and invalid-session denial. The entire test rolls back, including Auth fixtures.
 - Anonymous HTTP reads returned 401 for all four new tables.
 - Supabase security advisors found no table/function findings. An Auth configuration warning remains for disabled leaked-password protection; this app only accepts Google university identities. Reference: https://supabase.com/docs/guides/auth/password-security#password-strength-and-leaked-password-protection
@@ -37,3 +37,7 @@ Historical browser-only demo records are not automatically uploaded or deleted. 
 ## Campus location
 
 The shared `src/campus.js` coordinate points at the Merul Badda campus centre (23.77308, 90.42447), based on OpenStreetMap campus footprint https://www.openstreetmap.org/way/1239676644 and the official address https://www.bracu.ac.bd/contact. This is a campus marker, not a confirmed car pickup gate. The old point (23.7808, 90.4254) was approximately 860 metres north.
+
+## Ride fares
+
+Offers may include an optional fare in BDT per seat. Blank/NULL means discuss with the owner, zero means free, and paid fares accept up to two decimal places. The UI displays the fare on cards, details, My Rides, and conversation headers. The server validates the amount before storing it in `rides.fare`. New clients use the guarded `publish_ride` RPC; the existing `create_ride` API remains available for older builds and creates rides with no specified fare. There is no in-app payment processing.

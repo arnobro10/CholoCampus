@@ -21,6 +21,18 @@ begin
  t:=case when d>(now() at time zone 'Asia/Dhaka')::date then '08:30'::time else '23:59'::time end;
  perform public.create_ride(v_ride_id,'to','Dhanmondi 27','BRAC University, Merul Badda',d,t,'Car',1,'Integration test');
  insert into test_context values('ride',v_ride_id);
+ -- New clients can provide optional BDT fares; old create_ride remains compatible.
+ perform public.publish_ride(gen_random_uuid(),'to','Dhanmondi 27','BRAC University, Merul Badda',d,t,'Car',1,'Fare test',80.50);
+ if not exists(select 1 from public.rides where owner_id=(select v from test_context where k='user1') and fare=80.50) then raise exception 'Fare was not persisted'; end if;
+ perform public.publish_ride(gen_random_uuid(),'to','Dhanmondi 27','BRAC University, Merul Badda',d,t,'Car',1,'Free ride',0);
+ if not exists(select 1 from public.rides where note='Free ride' and fare=0) then raise exception 'Zero fare was not preserved'; end if;
+ rejected:=false;
+ begin perform public.publish_ride(gen_random_uuid(),'to','Dhanmondi 27','BRAC University, Merul Badda',d,t,'Car',1,'Invalid fare',-1); exception when raise_exception then rejected:=true; end;
+ if not rejected then raise exception 'Negative fare accepted'; end if;
+ rejected:=false;
+ begin perform public.publish_ride(gen_random_uuid(),'to','Dhanmondi 27','BRAC University, Merul Badda',d,t,'Car',1,'Invalid precision',1.234); exception when raise_exception then rejected:=true; end;
+ if not rejected then raise exception 'Fare precision silently rounded'; end if;
+
  if not exists(select 1 from public.rides where rides.id=v_ride_id and seats=1) then raise exception 'Ride did not persist'; end if;
  perform public.create_ride(v_ride_id,'to','Dhanmondi 27','BRAC University, Merul Badda',d,t,'Car',1,'Integration test');
  begin perform public.create_ride(gen_random_uuid(),'to','Dhanmondi 27','Wrong campus',d,t,'Car',1,''); exception when check_violation then rejected:=true; end;
