@@ -1,0 +1,80 @@
+<template><style>
+@font-face{font-family:Poppins;src:url('assets/fonts/poppins-400.ttf');font-weight:400}
+@font-face{font-family:Poppins;src:url('assets/fonts/poppins-500.ttf');font-weight:500}
+@font-face{font-family:Poppins;src:url('assets/fonts/poppins-600.ttf');font-weight:600}
+@font-face{font-family:Poppins;src:url('assets/fonts/poppins-700.ttf');font-weight:700}
+*{box-sizing:border-box} #root{position:absolute;inset:0;color:#f5f5f7;font-family:Poppins;background:#101114;overflow:hidden}
+.stage{position:absolute;inset:0;padding:100px 160px;background:#101114}
+.brand{display:flex;align-items:center;gap:18px;font-size:29px;font-weight:600;letter-spacing:-1px}
+.brand img{width:64px;height:64px;border-radius:17px;object-fit:contain;background:white}
+.top{display:flex;justify-content:space-between;align-items:center}.eyebrow{color:#d5f531;font-size:28px;letter-spacing:3px;font-weight:500}
+h1,h2,p{margin:0} h1{font-size:112px;line-height:1.1;letter-spacing:-6px;font-weight:600} h2{font-size:72px;line-height:1.16;letter-spacing:-3px;font-weight:600}
+.lime{color:#d5f531}.muted{color:#b5b6be}.sub{font-size:30px;line-height:1.65;color:#b5b6be;margin-top:28px}
+.foot{position:absolute;left:160px;right:160px;bottom:66px;display:flex;justify-content:space-between;font-size:28px;color:#a7aab3}
+.line{height:2px;background:#34363c}.pill{display:inline-block;padding:12px 24px;border:1px solid #494c53;border-radius:50px;font-size:28px}
+.ui{background:#1b1d23;border:2px solid #41444a;border-radius:30px;box-shadow:0 30px 100px #0008;overflow:hidden}
+.bar{height:62px;background:#23262c;display:flex;align-items:center;gap:9px;padding:0 26px;color:#b5b6be;font-size:28px}
+.dot{width:9px;height:9px;border-radius:50%;background:#747780}.bar span:last-child{margin-left:20px}
+.button{padding:20px 26px;background:#d5f531;color:#111411;border-radius:16px;font-size:28px;font-weight:600;text-align:center}
+.label{font-size:28px;color:#b5b6be;letter-spacing:2px;margin-bottom:10px}.value{font-size:29px;font-weight:500}
+.route{display:flex;gap:23px;align-items:center}.route-mark{width:15px;height:15px;border:4px solid #d5f531;border-radius:50%}
+.row{display:flex;justify-content:space-between;align-items:center}.tag{font-size:28px;color:#f9b3a9;background:#412d2c;padding:8px 16px;border-radius:12px}
+.cursor{position:absolute;width:36px;height:48px;background:#f8f8fa;clip-path:polygon(0 0,100% 65%,55% 68%,36% 100%);z-index:10;filter:drop-shadow(0 2px 3px #000)}
+</style><div data-hf-id="hf-cgnh" id="root" data-composition-id="chat" data-width="1920" data-height="1080"><div data-hf-id="hf-xqfn" class="stage" id="chat-stage"><div data-hf-id="hf-sijt" class="top"><div data-hf-id="hf-xo41" class="brand"><img data-hf-id="hf-6tl7" src="assets/logo.png" alt="CholoCampus logo">choloCampus</div><div data-hf-id="hf-5hs1" class="eyebrow">03 / PLAN THE PICKUP</div></div>
+<div data-hf-id="hf-nvqv" style="display:flex;gap:110px;margin-top:70px;align-items:center"><div data-hf-id="hf-cv2b" class="ui" id="chat-ui" style="width:790px;height:640px"><div data-hf-id="hf-5dec" style="padding:30px 36px;border-bottom:1px solid #41444a"><div data-hf-id="hf-mrz2" class="value">Your messages.</div><div data-hf-id="hf-olsi" class="muted" style="font-size:28px;margin-top:8px">Uttara → BRAC University</div></div><div data-hf-id="hf-bgnl" style="padding:32px"><div data-hf-id="hf-gcya" id="chat-a" style="background:#30343d;padding:22px 28px;border-radius:22px 22px 22px 5px;width:490px;font-size:28px">Meet at the pickup point?</div><div data-hf-id="hf-xxxq" id="chat-b" style="background:#d5f531;color:#111411;padding:22px 28px;border-radius:22px 22px 5px 22px;width:400px;margin:28px 0 0 auto;font-size:28px">Yes, see you at 8:30.</div><div data-hf-id="hf-um21" id="chat-confirm" style="margin-top:40px;text-align:center;color:#d5f531;font-size:28px">Seat request accepted</div></div><div data-hf-id="hf-00ny" style="padding:25px 32px;border-top:1px solid #41444a;font-size:28px;color:#b5b6be">Write a message...</div></div>
+<div data-hf-id="hf-ijwp" style="width:660px"><h2 data-hf-id="hf-9p2y" id="chat-title">Work out<br data-hf-id="hf-x5px"><span data-hf-id="hf-6aev" class="lime">the details.</span></h2><p data-hf-id="hf-iv69" class="sub" id="chat-sub">Private chat for pickup and fare.<br data-hf-id="hf-rsrt">Accept or decline seat requests.</p><span data-hf-id="hf-o417" class="pill" style="margin-top:38px">Demo conversation</span></div></div><div data-hf-id="hf-mlgk" class="foot"><span data-hf-id="hf-sl55">BRAC UNIVERSITY · DHAKA</span><span data-hf-id="hf-clww">Better commutes, together.</span></div></div></div>
+<script>const tl=gsap.timeline({paused:true});
+// beat-locked: global 15.82s scene reveal.
+tl.fromTo('#chat-ui',{x:-120,opacity:0},{x:0,opacity:1,duration:.7,ease:'power4.out'},0);
+tl.fromTo('#chat-title, #chat-sub',{opacity:0},{opacity:1,duration:.5,stagger:.25},.2);
+tl.fromTo('#chat-a',{x:-28,opacity:0},{x:0,opacity:1,duration:.45,ease:'power3.out'},.7);
+tl.fromTo('#chat-b',{x:28,opacity:0},{x:0,opacity:1,duration:.45,ease:'power3.out'},1.7);
+tl.fromTo('#chat-confirm',{opacity:0},{opacity:1,duration:.5},3.1);
+tl.fromTo('#chat-stage',{y:0},{y:-1080,duration:.5,ease:'power3.in'},4.96);
+tl.to('#chat-ui',{borderColor:'rgb(97,100,104)',duration:.12,ease:'none'},0.00);
+tl.to('#chat-ui',{borderColor:'rgb(86,89,93)',duration:.12,ease:'none'},0.12);
+tl.to('#chat-ui',{borderColor:'rgb(82,85,89)',duration:.12,ease:'none'},0.24);
+tl.to('#chat-ui',{borderColor:'rgb(66,69,73)',duration:.12,ease:'none'},0.36);
+tl.to('#chat-ui',{borderColor:'rgb(86,89,93)',duration:.12,ease:'none'},0.48);
+tl.to('#chat-ui',{borderColor:'rgb(65,68,72)',duration:.12,ease:'none'},0.60);
+tl.to('#chat-ui',{borderColor:'rgb(65,68,72)',duration:.12,ease:'none'},0.72);
+tl.to('#chat-ui',{borderColor:'rgb(91,94,98)',duration:.12,ease:'none'},0.84);
+tl.to('#chat-ui',{borderColor:'rgb(76,79,83)',duration:.12,ease:'none'},0.96);
+tl.to('#chat-ui',{borderColor:'rgb(91,94,98)',duration:.12,ease:'none'},1.08);
+tl.to('#chat-ui',{borderColor:'rgb(91,94,98)',duration:.12,ease:'none'},1.20);
+tl.to('#chat-ui',{borderColor:'rgb(81,84,88)',duration:.12,ease:'none'},1.32);
+tl.to('#chat-ui',{borderColor:'rgb(89,92,96)',duration:.12,ease:'none'},1.44);
+tl.to('#chat-ui',{borderColor:'rgb(87,90,94)',duration:.12,ease:'none'},1.56);
+tl.to('#chat-ui',{borderColor:'rgb(92,95,99)',duration:.12,ease:'none'},1.68);
+tl.to('#chat-ui',{borderColor:'rgb(89,92,96)',duration:.12,ease:'none'},1.80);
+tl.to('#chat-ui',{borderColor:'rgb(63,66,70)',duration:.12,ease:'none'},1.92);
+tl.to('#chat-ui',{borderColor:'rgb(63,66,70)',duration:.12,ease:'none'},2.04);
+tl.to('#chat-ui',{borderColor:'rgb(100,103,107)',duration:.12,ease:'none'},2.16);
+tl.to('#chat-ui',{borderColor:'rgb(83,86,90)',duration:.12,ease:'none'},2.28);
+tl.to('#chat-ui',{borderColor:'rgb(81,84,88)',duration:.12,ease:'none'},2.40);
+tl.to('#chat-ui',{borderColor:'rgb(62,65,69)',duration:.12,ease:'none'},2.52);
+tl.to('#chat-ui',{borderColor:'rgb(86,89,93)',duration:.12,ease:'none'},2.64);
+tl.to('#chat-ui',{borderColor:'rgb(74,77,81)',duration:.12,ease:'none'},2.76);
+tl.to('#chat-ui',{borderColor:'rgb(66,69,73)',duration:.12,ease:'none'},2.88);
+tl.to('#chat-ui',{borderColor:'rgb(86,89,93)',duration:.12,ease:'none'},3.00);
+tl.to('#chat-ui',{borderColor:'rgb(77,80,84)',duration:.12,ease:'none'},3.12);
+tl.to('#chat-ui',{borderColor:'rgb(82,85,89)',duration:.12,ease:'none'},3.24);
+tl.to('#chat-ui',{borderColor:'rgb(84,87,91)',duration:.12,ease:'none'},3.36);
+tl.to('#chat-ui',{borderColor:'rgb(63,66,70)',duration:.12,ease:'none'},3.48);
+tl.to('#chat-ui',{borderColor:'rgb(88,91,95)',duration:.12,ease:'none'},3.60);
+tl.to('#chat-ui',{borderColor:'rgb(86,89,93)',duration:.12,ease:'none'},3.72);
+tl.to('#chat-ui',{borderColor:'rgb(87,90,94)',duration:.12,ease:'none'},3.84);
+tl.to('#chat-ui',{borderColor:'rgb(87,90,94)',duration:.12,ease:'none'},3.96);
+tl.to('#chat-ui',{borderColor:'rgb(64,67,71)',duration:.12,ease:'none'},4.08);
+tl.to('#chat-ui',{borderColor:'rgb(62,65,69)',duration:.12,ease:'none'},4.20);
+tl.to('#chat-ui',{borderColor:'rgb(103,106,110)',duration:.12,ease:'none'},4.32);
+tl.to('#chat-ui',{borderColor:'rgb(88,91,95)',duration:.12,ease:'none'},4.44);
+tl.to('#chat-ui',{borderColor:'rgb(85,88,92)',duration:.12,ease:'none'},4.56);
+tl.to('#chat-ui',{borderColor:'rgb(62,65,69)',duration:.12,ease:'none'},4.68);
+tl.to('#chat-ui',{borderColor:'rgb(88,91,95)',duration:.12,ease:'none'},4.80);
+tl.to('#chat-ui',{borderColor:'rgb(77,80,84)',duration:.12,ease:'none'},4.92);
+tl.to('#chat-ui',{borderColor:'rgb(77,80,84)',duration:.12,ease:'none'},5.04);
+tl.to('#chat-ui',{borderColor:'rgb(84,87,91)',duration:.12,ease:'none'},5.16);
+tl.to('#chat-ui',{borderColor:'rgb(82,85,89)',duration:.12,ease:'none'},5.28);
+
+window.__timelines["chat"]=tl;</script></template>
