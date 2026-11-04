@@ -21,7 +21,7 @@ export default function useLocalTestData() {
       next = { ...next, rides: [...next.rides, { id: result, ownerId: LOCAL_TEST_USER.id, name: LOCAL_TEST_USER.name, initials: 'LT',
         direction: p.p_direction, from: p.p_pickup, to: p.p_destination, fromCoords: [p.p_pickup_lat, p.p_pickup_lng],
         toCoords: [p.p_destination_lat, p.p_destination_lng], date: p.p_date, time: p.p_time, vehicle: p.p_vehicle,
-        seats: p.p_seats, note: p.p_note, fare: p.p_fare, cancelled: false }] };
+        seats: p.p_seats, note: p.p_note, fare: p.p_fare, femaleOnly: p.p_female_only === true, cancelled: false }] };
     } else if (name === 'cancel_ride') {
       next = { ...next, rides: next.rides.map(r => r.id === p.p_ride_id ? { ...r, cancelled: true } : r) };
     } else if (name === 'save_destination') {
