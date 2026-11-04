@@ -5,7 +5,7 @@ import { layoutRidePinsAndLabels } from './rideMarkerLayout.js';
 
 const stickers = {
   Car: '<path fill="currentColor" d="M2 11l2-6a2 2 0 012-1h12a2 2 0 012 1l2 6v7h-3v2h-3v-2H8v2H5v-2H2z"/><path fill="white" d="M5 10l1-4h12l1 4z"/><path fill="white" d="M5 13h3v2H5zm11 0h3v2h-3z"/>',
-  Bike: '<g fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><circle cx="5" cy="16" r="3.5"/><circle cx="19" cy="16" r="3.5"/><path d="M5 16l5-6 3 6h6L15 5h-3M7 8h4"/></g>',
+  Bike: '<g stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><g fill="none"><circle cx="5" cy="17" r="3.5"/><circle cx="19" cy="17" r="3.5"/><path d="M19 17 15 6h-2M4 10h5"/></g><path fill="currentColor" d="M5 17l4-6 2-2h4l1 3-3 2-1 3z"/></g>',
 };
 
 const rideIcons = Object.fromEntries(['to', 'from'].flatMap(direction =>
