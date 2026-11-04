@@ -1,6 +1,6 @@
 import assert from 'node:assert/strict';
 import test from 'node:test';
-import { layoutRideMarkers, layoutRidePins } from './rideMarkerLayout.js';
+import { layoutRideMarkers, layoutRidePins, layoutRidePinsAndLabels } from './rideMarkerLayout.js';
 
 const viewport = { x: 800, y: 600 };
 
@@ -42,4 +42,10 @@ test('pins near the right edge spread into the map when room is available', () =
   assert.deepEqual(first, anchor);
   assert.ok(second.x < first.x);
   assert.equal(second.y, first.y);
+});
+
+test('the map layout centers touching pins and mirrors their detail boxes', () => {
+  const { pins, labels } = layoutRidePinsAndLabels([{ x: 300, y: 250 }, { x: 304, y: 252 }], viewport);
+  assert.deepEqual(pins, [{ x: 288.5, y: 251 }, { x: 315.5, y: 251 }]);
+  assert.deepEqual(labels, [{ x: 246, y: 251 }, { x: 358, y: 251 }]);
 });

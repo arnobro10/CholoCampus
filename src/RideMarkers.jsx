@@ -1,6 +1,6 @@
 import React, { useReducer } from 'react';
 import { CircleMarker, Polyline, Popup, Tooltip, useMapEvents } from 'react-leaflet';
-import { layoutRideMarkers, layoutRidePins } from './rideMarkerLayout.js';
+import { layoutRidePinsAndLabels } from './rideMarkerLayout.js';
 
 export default function RideMarkers({ rides, getPoint, selected, onSelect, formatTime }) {
   const [, refresh] = useReducer(value => value + 1, 0);
@@ -9,9 +9,7 @@ export default function RideMarkers({ rides, getPoint, selected, onSelect, forma
     .filter(entry => entry.origin)
     .sort((a, b) => a.ride.id.localeCompare(b.ride.id));
   const anchors = entries.map(({ origin }) => map.latLngToContainerPoint(origin));
-  const viewport = map.getSize();
-  const pins = layoutRidePins(anchors, viewport);
-  const labels = layoutRideMarkers(pins, viewport, pins);
+  const { pins, labels } = layoutRidePinsAndLabels(anchors, map.getSize());
 
   return entries.map(({ ride }, index) => {
     const pin = pins[index];
