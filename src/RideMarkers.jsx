@@ -22,9 +22,11 @@ export default function RideMarkers({ rides, getPoint, selected, onSelect, forma
     const connector = isPaired
       ? [center, map.containerPointToLatLng([label.x, pin.y]), labelBottom]
       : [center, labelBottom];
-    const labelClass = isPaired
-      ? `ride-marker-label ride-marker-label--${ride.direction}`
-      : 'ride-marker-label';
+    const labelClass = [
+      'ride-marker-label',
+      isPaired && `ride-marker-label--${ride.direction}`,
+      ride.femaleOnly && 'ride-marker-label--female-only',
+    ].filter(Boolean).join(' ');
     return <React.Fragment key={ride.id}>
       <Polyline positions={connector} interactive={false}
         pathOptions={{ color, weight: 2 }}/>

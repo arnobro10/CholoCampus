@@ -1,7 +1,39 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { ArrowRight, ShieldCheck } from '../Icons.jsx';
 
 export default function LoginPanel({ auth }) {
+  const [gender, setGender] = useState('');
+  const [saving, setSaving] = useState(false);
+  const [profileError, setProfileError] = useState('');
+  async function submitProfile(event) {
+    event.preventDefault();
+    if (!gender || saving) return;
+    setSaving(true);
+    setProfileError('');
+    try { await auth.completeProfile(gender); }
+    catch (error) { setProfileError(error.message || 'Could not save your profile. Try again.'); }
+    finally { setSaving(false); }
+  }
+
+  if (auth.user && !auth.user.gender) return <main className="content auth-page">
+    <div className="auth-card university-login">
+      <h1>Complete your profile</h1>
+      <p>Choose your gender to finish signing up. This stays private on your profile.</p>
+      <form onSubmit={submitProfile}>
+        <label>Gender <select required value={gender} onChange={event => setGender(event.target.value)}>
+          <option value="">Select your gender</option>
+          <option value="female">Female</option>
+          <option value="male">Male</option>
+          <option value="nonbinary">Non-binary</option>
+          <option value="other">Another gender</option>
+        </select></label>
+        <button className="primary-btn" disabled={!gender || saving}>{saving ? 'Saving…' : 'Continue'}</button>
+        {profileError && <p role="alert">{profileError}</p>}
+      </form>
+      <button type="button" className="light-btn" onClick={auth.signOut}>Sign out</button>
+    </div>
+  </main>;
+
   return <main className="content auth-page"><div className="auth-card university-login">
     <img className="login-logo" src="/brand/cholocampus-logo.png" width="56" height="56" alt="choloCampus"/>
     <h1>Your campus.<br/>Your community.</h1>

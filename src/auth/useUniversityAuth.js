@@ -32,16 +32,16 @@ export default function useUniversityAuth() {
           throw new Error('Use your BRAC University student or faculty Google account.');
         }
         const id = data.user.id;
-        let result = await supabase.from('profiles').select('id, display_name').eq('id', id).maybeSingle();
+        let result = await supabase.from('profiles').select('id, display_name, gender').eq('id', id).maybeSingle();
         if (result.error) throw result.error;
         if (!result.data) {
           const name = (data.user.user_metadata?.full_name || data.user.email.split('@')[0]).trim().slice(0, 100) || 'University member';
-          result = await supabase.from('profiles').insert({ id, display_name: name }).select('id, display_name').single();
-          if (result.error?.code === '23505') result = await supabase.from('profiles').select('id, display_name').eq('id', id).single();
+          result = await supabase.from('profiles').insert({ id, display_name: name }).select('id, display_name, gender').single();
+          if (result.error?.code === '23505') result = await supabase.from('profiles').select('id, display_name, gender').eq('id', id).single();
         }
         if (result.error || !result.data) throw new Error('University access could not be verified. Please sign out and try again.');
         if (alive && current === revision) {
-          setUser({ id, name: result.data.display_name, email: data.user.email, verified: true, authProvider: 'google' });
+          setUser({ id, name: result.data.display_name, email: data.user.email, gender: result.data.gender, verified: true, authProvider: 'google' });
           setError('');
         }
       } catch (failure) {
@@ -106,11 +106,21 @@ export default function useUniversityAuth() {
       if (native && data.url) await Browser.open({ url: data.url });
     } catch (failure) { setError(failure.message || 'Could not open Google sign-in. Please try again.'); }
   };
+  const completeProfile = async gender => {
+    if (!user) throw new Error('Sign in to complete your profile.');
+    const { data, error: saveError } = await supabase.from('profiles')
+      .update({ gender }).eq('id', user.id).is('gender', null)
+      .select('gender').maybeSingle();
+    if (saveError) throw saveError;
+    if (!data) throw new Error('Reload the app to see your saved profile.');
+    setUser(current => current?.id === user.id ? { ...current, gender: data.gender } : current);
+  };
+
   const signOut = async () => {
     if (!supabase) return true;
     const { error: logoutError } = await supabase.auth.signOut();
     if (logoutError) { setError('Sign-out failed. Check your connection and try again.'); return false; }
     setUser(null); setError(''); return true;
   };
-  return { accessDenied, dismissAccessDenied: () => setAccessDenied(false), user, loading, error, providerReady, providerChecked, configured: authConfigured, signIn, signOut };
+  return { accessDenied, dismissAccessDenied: () => setAccessDenied(false), user, loading, error, providerReady, providerChecked, configured: authConfigured, completeProfile, signIn, signOut };
 }

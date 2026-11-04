@@ -5,7 +5,7 @@ export function rideFromRow(row) {
     fromCoords:row.pickup_lat != null && row.pickup_lng != null ? [row.pickup_lat,row.pickup_lng] : null,
     toCoords:row.destination_lat != null && row.destination_lng != null ? [row.destination_lat,row.destination_lng] : null,
     time:row.departure_time.slice(0,5), vehicle:row.vehicle, seats:row.seats,
-    note:row.note, fare:row.fare == null ? null : Number(row.fare), cancelled:row.cancelled };
+    note:row.note, fare:row.fare == null ? null : Number(row.fare), femaleOnly:row.female_only === true, cancelled:row.cancelled };
 }
 
 export function stateFromRows(rides, requests, messages, destinations) {

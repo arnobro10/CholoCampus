@@ -92,3 +92,5 @@
 .ride-marker-label.leaflet-tooltip:before{display:none}
 .ride-marker-label--to.leaflet-tooltip{background:#ef685a}.ride-marker-label--from.leaflet-tooltip{background:#a7cf8b}
 .campus-logo-marker{box-sizing:border-box;object-fit:contain;padding:4px;border:1px solid #ddd;border-radius:10px;background:#fff;box-shadow:0 2px 8px #0005}
+.form-grid .female-only-option input{width:18px;min-height:18px;accent-color:var(--accent)}
+.ride-marker-label--female-only.leaflet-tooltip{outline:2px solid #ff68ae}

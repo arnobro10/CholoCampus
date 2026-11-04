@@ -45,3 +45,4 @@
 }
 .signed-out-shell .google-signin:disabled:hover{background:#0071e3;color:#fff}
 @media(prefers-reduced-motion:reduce){.signed-out-shell .google-signin{transition:none}}
+.university-login select{display:block;width:100%;margin:8px 0 16px;padding:12px;border:1px solid var(--line);border-radius:12px;background:var(--surface-raised);color:var(--label);font:inherit}
