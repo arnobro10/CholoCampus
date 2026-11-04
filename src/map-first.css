@@ -87,3 +87,5 @@
 .published-offer-actions{display:flex;flex-wrap:wrap;gap:12px;margin:24px 0 10px}
 .offer-limit-help{padding:8px 0;border:0;background:transparent;color:var(--secondary);text-align:left;text-decoration:underline;text-underline-offset:3px;font:inherit;font-size:12px}
 @media(max-width:480px){.published-offer-actions{flex-direction:column}.published-offer-actions button{width:100%;justify-content:center}.published-offer h3{font-size:17px}}
+
+.ride-marker-label.leaflet-tooltip{width:104px;box-sizing:border-box;white-space:nowrap}
