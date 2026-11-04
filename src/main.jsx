@@ -189,9 +189,10 @@ function App(){
             <button type="button" className="search-tool" aria-label="Choose destination on map" onClick={()=>setDestinationOpen(true)}><MapPin size={20}/></button>
             <button type="button" className={'search-tool '+(filterOpen?'active':'')} aria-label="Ride filters" aria-expanded={filterOpen} onClick={()=>{setFilterOpen(!filterOpen);setShowRides(true)}}><SlidersHorizontal size={20}/></button>
           </form>
-          <ul className="ride-direction-legend" aria-label="Ride direction colors">
+          <ul className="ride-direction-legend" aria-label="Ride map legend">
             <li><span className="ride-direction-swatch--to" aria-hidden="true"/>Red: Home to campus</li>
             <li><span className="ride-direction-swatch--from" aria-hidden="true"/>Green: Campus to home</li>
+            <li>A.S. = Available seats</li>
           </ul>
           {showRides&&<div className="search-drawer" role="region" aria-label="Ride search results">
             <div className="search-drawer-heading"><div><h1>Find a ride</h1><small>{readable(date)}</small></div><button className="search-tool" aria-label="Close search results" onClick={()=>{setShowRides(false);setFilterOpen(false)}}><X size={18}/></button></div>
