@@ -89,3 +89,4 @@
 @media(max-width:480px){.published-offer-actions{flex-direction:column}.published-offer-actions button{width:100%;justify-content:center}.published-offer h3{font-size:17px}}
 
 .ride-marker-label.leaflet-tooltip{width:104px;box-sizing:border-box;white-space:nowrap}
+.ride-marker-label.leaflet-tooltip:before{display:none}
