@@ -36,13 +36,13 @@ export default function RideMarkers({ rides, getPoint, selected, onSelect, forma
     const labelBottom = map.containerPointToLatLng([label.x, label.y - 18]);
     const going = ride.direction === 'to';
     const isPaired = paired.has(index);
-    const color = going ? '#ef685a' : isPaired ? '#a7cf8b' : '#1eab85';
+    const color = going ? '#ef685a' : '#47bc77';
     const connector = isPaired
       ? [center, map.containerPointToLatLng([label.x, pin.y]), labelBottom]
       : [center, labelBottom];
     const labelClass = [
       'ride-marker-label',
-      isPaired && `ride-marker-label--${ride.direction}`,
+      `ride-marker-label--${going ? "to" : "from"}`,
       ride.femaleOnly && 'ride-marker-label--female-only',
     ].filter(Boolean).join(' ');
     return <React.Fragment key={ride.id}>
