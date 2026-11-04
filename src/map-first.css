@@ -98,6 +98,6 @@
 .ride-marker-label--female-only.leaflet-tooltip{outline:3px solid #ff68ae;box-shadow:inset 0 0 0 1px #fff,0 3px 12px #0005}
 .ride-vehicle-sticker{color:var(--ride-color)}.ride-vehicle-sticker svg{display:block;width:100%;height:100%;filter:drop-shadow(1px 0 #fff) drop-shadow(-1px 0 #fff) drop-shadow(0 1px #fff) drop-shadow(0 -1px #fff)}.ride-vehicle-sticker--selected svg{filter:drop-shadow(1px 0 #d5f531) drop-shadow(-1px 0 #d5f531) drop-shadow(0 1px #d5f531) drop-shadow(0 -1px #d5f531)}
 
-.ride-direction-legend{display:flex;flex-wrap:wrap;justify-content:flex-end;gap:4px 12px;width:fit-content;max-width:100%;margin:8px 0 0 auto;padding:6px 10px;list-style:none;border:1px solid var(--line);border-radius:12px;background:var(--surface);color:var(--label);font-size:11px}
+.ride-direction-legend{display:grid;gap:4px;width:fit-content;max-width:100%;margin:8px 0 0 auto;padding:6px 10px;list-style:none;border:1px solid var(--line);border-radius:12px;background:var(--surface);color:var(--label);font-size:11px}
 .ride-direction-legend li{display:flex;align-items:center;gap:6px}
 .ride-direction-legend li span{width:8px;height:8px;border-radius:50%;background:var(--ride-color)}
