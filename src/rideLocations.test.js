@@ -28,3 +28,11 @@ test('search encodes typed queries, restricts Dhaka and handles failures without
   await assert.rejects(searchRidePlaces('Dhaka',{fetcher:async()=>({ok:false})}),/unavailable/);
   assert.deepEqual(await searchRidePlaces('a',{fetcher:()=>{throw new Error('Should not fetch one character');}}),[]);
 });
+test('joined landmark names are split before searching', async () => {
+  await searchRidePlaces('Khilgaon matirmasjid', {
+    fetcher: async url => {
+      assert.equal(url.searchParams.get('q'), 'Khilgaon matir masjid');
+      return { ok: true, json: async () => ({ features: [] }) };
+    },
+  });
+});

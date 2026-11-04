@@ -29,9 +29,11 @@ export function photonPlaces(payload) {
   });
 }
 export async function searchRidePlaces(query,{signal,fetcher=fetch,endpoint='https://photon.komoot.io/api/'}={}) {
-  if(query.trim().length<2)return [];
+  // Common Dhaka landmark suffixes are often typed without a space.
+  const term = query.trim().replace(/([a-z])(masjid|mosjid|mashjid|bazaar|bazar)\b/gi, '$1 $2');
+  if(term.length<2)return [];
   const url=new URL(endpoint);
-  Object.entries({q:query.trim(),limit:'6',lat:String(CAMPUS[0]),lon:String(CAMPUS[1]),bbox:'90.1,23.5,90.7,24.1',lang:'en'}).forEach(([key,value])=>url.searchParams.set(key,value));
+  Object.entries({q:term,limit:'6',lat:String(CAMPUS[0]),lon:String(CAMPUS[1]),bbox:'90.1,23.5,90.7,24.1',lang:'en'}).forEach(([key,value])=>url.searchParams.set(key,value));
   const response=await fetcher(url,{signal});
   if(!response.ok)throw new Error('Location search is unavailable. Please try again or drag the map to choose a pin.');
   return photonPlaces(await response.json());
