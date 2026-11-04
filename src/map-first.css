@@ -95,5 +95,5 @@
 .ride-marker-label.leaflet-tooltip{background:var(--ride-color)}
 .campus-logo-marker{box-sizing:border-box;object-fit:contain;padding:4px;border:1px solid #ddd;border-radius:10px;background:#fff;box-shadow:0 2px 8px #0005}
 .form-grid .female-only-option input{width:18px;min-height:18px;accent-color:var(--accent)}
-.ride-marker-label--female-only.leaflet-tooltip{outline:2px solid #ff68ae}
+.ride-marker-label--female-only.leaflet-tooltip{outline:3px solid #ff68ae;box-shadow:inset 0 0 0 1px #fff,0 3px 12px #0005}
 .ride-vehicle-sticker{color:var(--ride-color)}.ride-vehicle-sticker svg{display:block;width:100%;height:100%;filter:drop-shadow(1px 0 #fff) drop-shadow(-1px 0 #fff) drop-shadow(0 1px #fff) drop-shadow(0 -1px #fff)}.ride-vehicle-sticker--selected svg{filter:drop-shadow(1px 0 #d5f531) drop-shadow(-1px 0 #d5f531) drop-shadow(0 1px #d5f531) drop-shadow(0 -1px #d5f531)}
