@@ -19,6 +19,7 @@ export function layoutRideMarkers(anchors, viewport, pins = []) {
 export function layoutRidePinsAndLabels(anchors, viewport) {
   const pins = layoutRidePins(anchors, viewport);
   const labels = layoutRideMarkers(pins, viewport, pins);
+  const paired = new Set();
   const near = (a, b, width, height) =>
     Math.abs(a.x - b.x) < width && Math.abs(a.y - b.y) < height;
   const neighbors = anchors.map((anchor, index) => anchors.flatMap((other, otherIndex) =>
@@ -46,8 +47,10 @@ export function layoutRidePinsAndLabels(anchors, viewport) {
 
     [pins[index], pins[partner]] = pairPins;
     [labels[index], labels[partner]] = pairLabels;
+    paired.add(index);
+    paired.add(partner);
   }
-  return { pins, labels };
+  return { pins, labels, paired };
 }
 
 function placePoints(anchors, viewport, horizontalStep, verticalStep, insetX, insetTop, insetBottom, blocked = () => false) {
