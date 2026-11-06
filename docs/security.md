@@ -28,7 +28,7 @@ The database also checks the authenticated Google identity, verified university 
 
 The app signs in through Google OAuth. A database trigger rejects new or updated Auth users unless their provider is Google and their email domain is `g.bracu.ac.bd` or `bracu.ac.bd`. App access additionally requires a confirmed email and a verified matching Google identity.
 
-`supabase/config.toml` now limits Supabase Auth sign-in/signup requests to 10 per 5 minutes per IP. Supabase Auth enforces the rate limit; this app has no separate registration endpoint. The stricter setting can affect many users who share one campus IP. Review it against real campus usage and adjust only if legitimate sign-ins are being throttled. Supabase Auth can also use CAPTCHA, but enabling it requires configuring a provider and adding its client token flow.
+`supabase/config.toml` now sets Supabase Auth's sign-in/signup rate to 10 requests per 5 minutes per IP. Supabase Auth uses a token bucket that can still allow short bursts of up to 30 requests, so this slows sustained attempts rather than capping every burst at 10. This app has no separate registration endpoint. The stricter rate can affect many users who share one campus IP. Review it against real campus usage and adjust only if legitimate sign-ins are being throttled. Supabase Auth can also use CAPTCHA, but enabling it requires configuring a provider and adding its client token flow.
 
 To apply the local auth configuration to the hosted project, first link the intended project and inspect the proposed changes, then push the configuration:
 
